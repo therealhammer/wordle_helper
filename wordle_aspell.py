@@ -15,17 +15,14 @@ def main(argv):
   parser.add_argument('-g', '--grey_letters', help= "Known grey letters that are defenitely not in the word", default="")
   parser.add_argument('-y', '--yellow_letters', help="Known yellow letters that are definitely in the word", default="")
   parser.add_argument('-l', '--language', help="Language: en|de", default="en")
-  parser.add_argument('-v', '--verbose', help="Verbosity", action="store_true")
   parser.add_argument('-w', '--wordl', help="Wordle word with known greens and _ for unknowns", required=True)
   args = vars(parser.parse_args())
 
   spell = SpellChecker(language=args["language"])
   iterate(args["wordl"], args["yellow_letters"], args["grey_letters"])
   for i in possibles:
-    if args["verbose"]:
-      print(i)
-    isaword(i, spell)
-
+    isaword_aspell(i, args["language"])
+  
 # Make a list of all posssible letter combinations
 def iterate(word, y, g):
   for i in word:

@@ -57,7 +57,7 @@ def isaword_aspell(word, l):
   ret = subprocess.getoutput("echo " + word + " | aspell -d " + l + " pipe")
   if ret.find("*") > 0:
     print("Valid word: " + word)
-  if l is not "en":
+  if l != "en":
     ret = subprocess.getoutput("echo " + word.title() + " | aspell -d " + l + " pipe")
     if ret.find("*") > 0:
       print("Valid word: " + word)

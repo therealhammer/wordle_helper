@@ -6,6 +6,8 @@ import string
 import sys
 import argparse
 from spellchecker import SpellChecker
+from multiprocessing import Pool
+from itertools import repeat
 
 possibles = []
 
@@ -20,9 +22,11 @@ def main(argv):
 
   spell = SpellChecker(language=args["language"])
   iterate(args["wordl"], args["yellow_letters"], args["grey_letters"])
-  for i in possibles:
-    isaword_aspell(i, args["language"])
-  
+  #for i in possibles:
+  #  isaword_aspell(i, args["language"])
+  with Pool() as p:
+    p.starmap(isaword_aspell, zip(possibles, repeat(args["language"])))
+
 # Make a list of all posssible letter combinations
 def iterate(word, y, g):
   for i in word:
